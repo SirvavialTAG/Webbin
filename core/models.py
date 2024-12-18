@@ -20,7 +20,12 @@ class Cars(models.Model):
     color = models.CharField(max_length=50)
     power_volume = models.CharField(max_length=250)
     brand_country = models.ForeignKey(Brands, models.DO_NOTHING, blank=True, null=True)
+    exchange_rate = models.ForeignKey(ExchangeRates, models.DO_NOTHING, blank=True, null=True)
+
 
     class Meta:
         managed = False
         db_table = 'cars'
+
+
+
