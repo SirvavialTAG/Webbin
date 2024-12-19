@@ -1,0 +1,29 @@
+<form class="contact_form" id="contactForm" method="post" action="">
+    {% csrf_token %}
+    <div class="form_group">
+        <label for="id_name">
+            <p>Имя</p>
+            {{ form.name }}
+        </label>
+        <label for="id_phone_number">
+            <p>Телефон</p>
+            {{ form.phone_number }}
+        </label>
+    </div>
+    <div class="form_group">
+        <label for="id_content">
+            <p>Уточните свой вопрос</p>
+            {{ form.content }}
+        </label>
+    </div>
+    <div class="form_group">
+        <label for="id_privacy_policy_agreed">
+            <span class="checkmark"></span>
+            {{ form.privacy_policy_agreed }}
+            <p>С <a target="_blank" href="/static/files/privacy_policy.pdf">правилами политики конфиденциальности</a> ознакомлен</p>
+        </label>
+    </div>
+    <div class="form_group">
+        <button type="submit" name="submit">Отправить</button>
+    </div>
+</form>
