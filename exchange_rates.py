@@ -67,7 +67,7 @@ def fetch_exchange_rates():
 
 # Функция для записи данных в файл
 def save_rates_to_file(rates):
-    with open("../exchange_rates.txt", "w", encoding="utf-8") as file:
+    with open("exchange_rates.txt", "w", encoding="utf-8") as file:
         file.write(f"Курсы валют на {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
         for rate in rates:
             file.write(f"Из {rate['fromCurrency']['code']} в {rate['toCurrency']['code']}:\n")
