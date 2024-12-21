@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список машин</title>
+</head>
+<body>
+    <h1>Список машин</h1>
+
+    <form method="get">
+        <label for="sort">Сортировка:</label>
+        <select name="sort" id="sort" onchange="this.form.submit()">
+            <option value="" {% if not sort_option %}selected{% endif %}>Сортировка</option>
+            <option value="price_asc" {% if sort_option == "price_asc" %}selected{% endif %}>Сначала недорогие</option>
+            <option value="price_desc" {% if sort_option == "price_desc" %}selected{% endif %}>Сначала дорогие</option>
+            <option value="year_desc" {% if sort_option == "year_desc" %}selected{% endif %}>Сначала новые</option>
+            <option value="year_asc" {% if sort_option == "year_asc" %}selected{% endif %}>Сначала старые</option>
+            <option value="mileage_asc" {% if sort_option == "mileage_asc" %}selected{% endif %}>Сначала с меньшим пробегом</option>
+            <option value="mileage_desc" {% if sort_option == "mileage_desc" %}selected{% endif %}>Сначала с большим пробегом</option>
+            <option value="volume_asc" {% if sort_option == "volume_asc" %}selected{% endif %}>Сначала с меньшим объемом</option>
+            <option value="volume_desc" {% if sort_option == "volume_desc" %}selected{% endif %}>Сначала с большим объемом</option>
+        </select>
+        <noscript><input type="submit" value="Отсортировать"></noscript>
+
+        <!-- Параметр марки авто для фильтрации -->
+        <div>
+            <select name="brand">
+                <option value="">Марка авто</option>
+                {% for brand in available_brands %}
+                    <option value="{{ brand }}" {% if request.GET.brand == brand %} selected {% endif %}>{{ brand }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Параметр модели авто для фильтрации -->
+        <div>
+            <select name="model">
+                <option value="">Модель авто</option>
+                {% for model in available_models %}
+                    <option value="{{ model }}" {% if request.GET.model == model %} selected {% endif %}>{{ model }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <div>
+                <select name="year_from" id="year_from">
+                    <option value="">Год от</option>
+                    {% for year in available_years %}
+                        <option value="{{ year }}" {% if request.GET.year_from == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select name="year_to" id="year_to">
+                    <option value="">Год до</option>
+                    {% for year in available_years %}
+                        <option value="{{ year }}" {% if request.GET.year_to == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <select name="drive" id="drive">
+                <option value="">Привод</option>
+                {% for drive_option in available_drives %}
+                    <option value="{{ drive_option }}" {% if request.GET.drive == drive_option %}selected{% endif %}>{{ drive_option }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <select name="transmission" id="transmission">
+                <option value="">КПП</option>
+                {% for transmission in available_transmissions %}
+                    <option value="{{ transmission }}" {% if request.GET.transmission == transmission %}selected{% endif %}>{{ transmission }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <select name="color" id="color">
+                <option value="">Цвет</option>
+                {% for color_key in available_colors %}
+                    <option value="{{ color }}" {% if request.GET.color_key == color %}selected{% endif %}>{{ available_colors_dict.color_key }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <input type="submit" value="Применить фильтры">
+    </form>
+
+    <ul>
+        {% for car in cars_page %}
+            <li>{{ car.brand_country.brand }} {{ car.model }} ({{ car.year }}), Пробег: {{ car.mileage }}, Цена: {{ car.price }}, Объем: {{ car.engine_volume }}</li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+     <span class="step-links">
+         {% if cars_page.has_previous %}
+             <a href="?page=1{% if sort_option %}&sort={{ sort_option }}{% endif %}&{{ request.GET.urlencode }}">« first</a>
+             <a href="?page={{ cars_page.previous_page_number }}{% if sort_option %}&sort={{ sort_option }}{% endif %}&{{ request.GET.urlencode }}">previous</a>
+         {% endif %}
+
+         <span class="current">
+             Page {{ cars_page.number }} of {{ cars_page.paginator.num_pages }}.
+         </span>
+
+         {% if cars_page.has_next %}
+             <a href="?page={{ cars_page.next_page_number }}{% if sort_option %}&sort={{ sort_option }}{% endif %}&{{ request.GET.urlencode }}">next</a>
+             <a href="?page={{ cars_page.paginator.num_pages }}{% if sort_option %}&sort={{ sort_option }}{% endif %}&{{ request.GET.urlencode }}">last »</a>
+         {% endif %}
+     </span>
+    </div>
+</body>
+</html>
