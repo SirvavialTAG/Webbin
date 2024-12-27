@@ -1,0 +1,17 @@
+<h1>Курсы валют</h1>
+<table>
+    <tr>
+        <th>Из валюты</th>
+        <th>В валюту</th>
+        <th>Курс покупки</th>
+        <th>Курс продажи</th>
+    </tr>
+    {% for rate in rates %}
+    <tr>
+        <td>{{ rate.from_currency }}</td>
+        <td>{{ rate.to_currency }}</td>
+        <td>{{ rate.buy_rate }}</td>
+        <td>{{ rate.sell_rate }}</td>
+    </tr>
+    {% endfor %}
+</table>

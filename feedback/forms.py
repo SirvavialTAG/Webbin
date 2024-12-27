@@ -23,7 +23,7 @@ class FeedbackForm(forms.ModelForm):
             }),
             'content': forms.Textarea(attrs={
                 'placeholder': 'Введите текст сообщения, укажите страну, марку и год машины.',
-                'maxlength': '200',
+                'maxlength': '255',
                 'rows': 10,
                 'cols': 40,
             }),

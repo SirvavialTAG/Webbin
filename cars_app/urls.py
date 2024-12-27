@@ -14,19 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.shortcuts import render
-from django.contrib import admin
+
 from django.urls import path, include
 
-
+from .views import update_exchange_rates, calculate_duty
 
 urlpatterns = [
 
-    path('admin/', admin.site.urls),
-    path('', include('core.urls')),
-    path('feedback/', include('feedback.urls')),
-    path('success/', lambda request: render(request, 'success.html'), name='success'),
-    path('cars/', include('cars_app.urls')),
+    path("exchange_rates/", update_exchange_rates, name="exchange_rates"),
+    path("customs_duties/", calculate_duty, name="customs_duties"),
 
 ]
 

@@ -1,0 +1,48 @@
+<!-- templates/cars_app/duty_results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результаты расчёта пошлин</title>
+</head>
+<body>
+    <h1>Результаты расчёта пошлин</h1>
+    {% if results %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Модель</th>
+                    <th>Цена (руб)</th>
+                    <th>Объём двигателя (см³)</th>
+                    <th>Возраст (лет)</th>
+                    <th>Таможенное оформление (руб)</th>
+                    <th>Единая ставка (руб)</th>
+                    <th>Утилизационный сбор (руб)</th>
+                    <th>Итого пошлина (руб)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in results %}
+                    {% if car.error %}
+                        <tr>
+                            <td colspan="8" style="color: red;">{{ car.model }}: {{ car.error }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>{{ car.model }}</td>
+                            <td>{{ car.price }}</td>
+                            <td>{{ car.engine_volume }}</td>
+                            <td>{{ car.age }}</td>
+                            <td>{{ car.customs_clearance }}</td>
+                            <td>{{ car.unified_rate }}</td>
+                            <td>{{ car.utilization_fee }}</td>
+                            <td>{{ car.total_duty }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Нет данных для отображения.</p>
+    {% endif %}
+</body>
+</html>
