@@ -14,20 +14,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.shortcuts import render
-from django.contrib import admin
-from django.urls import path, include
-
-
+# reviews_parser/urls.py
+from django.urls import path
+from .views import review_slider
 
 urlpatterns = [
-
-    path('admin/', admin.site.urls),
-    path('', include('core.urls')),
-    path('feedback/', include('feedback.urls')),
-    path('success/', lambda request: render(request, 'success.html'), name='success'),
-    path('cars/', include('cars_app.urls')),
-    path('reviews_parser/', include('reviews_parser.urls')),
-
+    path('', review_slider, name='review_slider'),  # Главный маршрут для /reviews_parser/
 ]
-

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'core',
     'feedback',
     'cars_app',
+    'reviews_parser',
 ]
 
 MIDDLEWARE = [

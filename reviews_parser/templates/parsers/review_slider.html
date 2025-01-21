@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы</title>
+    <style>
+        /* Стили для слайдера */
+        .slider {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 элемента в строке */
+            gap: 20px; /* отступы между элементами */
+        }
+        .slide {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Отзывы</h1>
+    {% if company_rating %}
+        <h2>Рейтинг компании: {{ company_rating.rating }}</h2>
+    {% else %}
+        <h2>Рейтинг компании не найден</h2>
+    {% endif %}
+
+    <div class="slider">
+        {% for review in reviews %}
+        <div class="slide">
+            <p><strong>Имя:</strong> {{ review.user_name }}</p>
+            <p><strong>Оценка:</strong> {{ review.rating }}</p>
+            <p><strong>Дата:</strong> {{ review.review_date }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
